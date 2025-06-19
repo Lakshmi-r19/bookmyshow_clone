@@ -59,8 +59,7 @@ def book_seats(request,theater_id):
                     movie=theaters.movie,
                     theater=theaters
                 )
-                seat.is_booked=True
-                seat.save()
+                
             except IntegrityError:
                 error_seats.append(seat.seat_number)
         if error_seats:
