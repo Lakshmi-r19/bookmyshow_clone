@@ -16,3 +16,4 @@ class SeatAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     list_display = ['user', 'seat', 'movie','theater','booked_at']
+
