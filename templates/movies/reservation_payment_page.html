@@ -1,0 +1,68 @@
+{% extends "users/basic.html" %} 
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="text-center text-success mb-4">Confirm Your Booking</h2>
+
+    <p class="lead text-center">You have selected the following seat(s):</p>
+
+    <ul class="list-group mb-4 text-center">
+      {% for seat in seats %}
+        <li class="list-group-item d-inline mx-2">{{ seat.seat_number }}</li>
+      {% endfor %}
+    </ul>
+
+    <!-- Countdown Timer -->
+    <p class="text-center text-danger fw-bold">
+       Time remaining to confirm: 
+      <span id="countdown-timer" class="fs-4">05:00</span>
+    </p>
+
+    <!-- Confirm Form -->
+    <form method="POST" class="text-center mt-4">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-lg">
+         Confirm Payment and Book seats
+      </button>
+    </form>
+
+    <!-- Cancel / Go Back -->
+    <div class="text-center mt-3">
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+        🔙 Cancel and Go Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Countdown Logic -->
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Total seconds for 5 minutes
+    let countdown = 5 * 60;
+    const countdownElement = document.getElementById('countdown-timer');
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(countdown / 60);
+      const seconds = countdown % 60;
+      countdownElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function countdownTick() {
+      if (countdown <= 0) {
+        // Redirect to timeout page after 5 mins
+        window.location.href = "{% url 'payment_timeout' %}";
+      } else {
+        countdown -= 1;
+        updateTimerDisplay();
+        setTimeout(countdownTick, 1000);
+      }
+    }
+
+    updateTimerDisplay();
+    countdownTick();
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "users/basic.html" %} 
+{% block content %}
+<div class="container text-center mt-5">
+  <h2>⏳ Reservation Timed Out</h2>
+  <p>Oops!The following seats were released as you did not confirm payment within 5 minutes:</p>
+  <strong>{{ seats_expired|join:", " }}</strong>
+  <p>Please go back and book your seats again.</p>
+  {% if theater %}
+    <a href="{% url 'book_seats' theater.id %}" class="btn btn-warning mt-3">Back to Seat Selection</a>
+  {% else %}
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+{% endif %}
+
+</div>
+{% endblock %}

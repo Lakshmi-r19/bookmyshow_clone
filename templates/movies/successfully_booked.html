@@ -1,0 +1,9 @@
+{% extends "users/basic.html" %} 
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2 class="text-success">🎉 Huraah!Booking Confirmed!</h2>
+  <p>Your payment is successful and seats are booked.Enjoy!</p>
+  <p><strong>Seats:</strong> {{ seats|join:", " }}</p>
+  <a href="{% url 'home' %}" class="btn btn-success mt-3">Go to Home</a>
+</div>
+{% endblock %}
